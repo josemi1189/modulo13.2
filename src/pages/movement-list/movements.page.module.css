@@ -1,0 +1,80 @@
+
+
+
+.movements-header {
+   display: grid;
+   grid-template-columns: 3fr 1fr;
+   border-bottom: 4px solid var(--tertiary-color);
+   padding-top: 1em;
+   padding-bottom: 0.5em;
+   
+   
+   span:nth-child(1) {
+      font-size: 1.3em;
+      font-weight: 600;
+      color: var(--tertiary-color);
+   }
+}   
+.balance {
+   display: flex; 
+   flex-direction: column;
+   align-items: flex-end;
+
+   span:nth-child(1) {
+      font-size: 0.7em;
+      font-weight: 600;
+      color: var(--tertiary-color);
+   }
+   
+   span:nth-child(2) {
+      color: var(--primary-color);
+      font-size: 1.3em;
+      font-weight: bold;
+   }
+}
+
+.iban {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   font-weight: 600;
+   font-size: 0.8em;
+
+   span:nth-child(1)::before {
+      content: 'Alias: ';
+   }
+   span:nth-child(2)::before {
+      content: 'IBAN: ';
+   }
+
+}
+
+.movements {
+   margin-top: 10px;
+   
+   .header-movements {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+      grid-template-rows: 3em;
+      grid-auto-rows: 3em;
+      
+   }
+   
+   .header-movements {
+      font-weight: 600;
+      text-align: left;
+      background-color: #bababa;
+      font-size: 0.7em;
+      
+      span {
+         padding: 0 5px;
+         border: 1px solid #FFF;
+         align-content: center;
+      }
+   }
+   
+   
+}
+
+
+
