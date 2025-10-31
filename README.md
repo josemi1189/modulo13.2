@@ -4,41 +4,6 @@
 
 El objetivo de este laboratorio es crear una aplicación web utilizando React aplicando todos los conocimientos obtenidos en el bootcamp.
 
-## Instalación
-
-Para instalar el proyecto, ejecutar el siguiente comando:
-
-```bash
-npm install
-```
-
-Con este comando se instalarán tanto las dependencias de la aplicación como las del servidor.
-
-## Ejecución
-
-Para ejecutar el proyecto, ejecutar el siguiente comando:
-
-```bash
-npm run dev
-```
-
-También se puede hacer desde la raíz de la aplicación, arrancar la aplicación por separado:
-
-```bash
-npm run dev
-```
-
-Y el servidor, vamos a la carpeta server:
-
-```bash
-cd server
-```
-
-Y ejecutamos el siguiente comando:
-
-```bash
-npm start
-```
 
 ## Acceso
 

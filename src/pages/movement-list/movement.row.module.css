@@ -2,13 +2,11 @@
 .row-movements {
    font-size: 0.9em;
    align-items: center;
-
-      display: grid;
-      grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
-      grid-template-rows: 3em;
-      grid-auto-rows: 3em;
-      
-   }
+   display: grid;
+   grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+   grid-template-rows: 3em;
+   grid-auto-rows: 3em;
+}
 
 .row-movements span {
    padding: 0 0.5em;
@@ -28,5 +26,5 @@
 }
 
 .value-negative {
-   color: var(--danger);
+   color: var(--color-danger);
 }

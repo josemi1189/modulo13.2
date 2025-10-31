@@ -6,8 +6,13 @@ import { mapAccountFromVmToApi } from "./new-account-mapper";
 import { useNavigate } from "react-router-dom";
 import { path } from "@/core/routes";
 import { saveAccount } from "./api";
+import { MessageInfo } from "@/components/message-info";
 
 export const NewAccountPage = () => {
+  interface Errors {
+    type: boolean;
+    alias: boolean;
+  }
   const navigate = useNavigate();
   const NONE = "0";
   const CURRENT_ACCOUNT = "1";
@@ -16,11 +21,20 @@ export const NewAccountPage = () => {
   const [typeAccount, setTypeAccount] = React.useState<string>(NONE);
   const [alias, setAlias] = React.useState<string>("");
   const [message, setMessage] = React.useState<string>("");
-  const [success, setSuccess] = React.useState<boolean>(false);
+  const [resultApi, setResultApi] = React.useState<boolean | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [errorsForm, setErrorsForm] = React.useState<Errors>({
+    type: false,
+    alias: false,
+  });
 
   const handleSubmit = async () => {
-    if (typeAccount !== NONE && alias.length > 3) {
+    setErrorsForm({
+      type: false,
+      alias: false,
+    });
+
+    if (typeAccount !== NONE && alias.length >= 4) {
       const dataAccount: Account = {
         type: typeAccount,
         name: alias,
@@ -30,17 +44,28 @@ export const NewAccountPage = () => {
       try {
         setIsLoading(true);
         await saveAccount(apiAccount);
+
+        setResultApi(true);
+        setMessage("Cuenta registrada correctamente");
+        setTimeout(() => {
+          navigate(path.accountList);
+          setResultApi(null);
+        }, 3000);
       } catch (error) {
-        setSuccess(false);
-        setIsLoading(false);
         console.log("Error", error);
+        setResultApi(false);
+        setMessage("No ha sido posible crear la cuenta");
       } finally {
         setIsLoading(false);
-        setMessage("Cuenta registrada correctamente");
-        navigate(path.accountList);
+        setTimeout(() => {
+          setResultApi(null);
+          setMessage("");
+        }, 3000);
       }
     } else {
-      alert("Ambos campos deben ser completados");
+      typeAccount === NONE &&
+        setErrorsForm((prev) => ({ ...prev, type: true }));
+      alias.length < 4 && setErrorsForm((prev) => ({ ...prev, alias: true }));
     }
   };
 
@@ -52,6 +77,8 @@ export const NewAccountPage = () => {
       case SAVINGS_CURRENT:
         setTypeAccount(SAVINGS_CURRENT);
         break;
+      default:
+        setTypeAccount(NONE);
     }
   };
 
@@ -64,7 +91,7 @@ export const NewAccountPage = () => {
       <div className={classes.newAccountHeader}>
         <span>Mis cuentas</span>
       </div>
-      <div className={success ? classes.success : classes.error}>{message}</div>
+      <MessageInfo message={message} typeMsg={resultApi} />
       <div className={classes.formNewAccount}>
         <div>
           <div className={classes.formRow}>
@@ -73,6 +100,7 @@ export const NewAccountPage = () => {
             <select
               id="typeAccount"
               name="typeAccount"
+              className={errorsForm.type ? classes.formRowError : ""}
               onChange={(event) => {
                 handleChangeSelect(event);
               }}
@@ -87,6 +115,12 @@ export const NewAccountPage = () => {
                 Cuenta ahorro
               </option>
             </select>
+
+            {errorsForm.type && (
+              <span className={classes.labelError}>
+                * Debe seleccionar el tipo de cuenta
+              </span>
+            )}
           </div>
           <div className={classes.formRow}>
             <label htmlFor="alias">Alias</label>
@@ -95,10 +129,16 @@ export const NewAccountPage = () => {
               id="alias"
               name="alias"
               value={alias}
+              className={errorsForm.alias ? classes.formRowError : ""}
               onChange={(e) => {
                 handleChangeInput(e);
               }}
             />
+            {errorsForm.alias && (
+              <span className={classes.labelError}>
+                * Introducir alias de al menos 4 caracteres
+              </span>
+            )}
           </div>
           <div className={classes.btnNewAccount}>
             <button

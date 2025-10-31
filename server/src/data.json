@@ -23,6 +23,14 @@
       "name": "Ahorro",
       "balance": 8500,
       "lastTransaction": "2019-11-15T08:29:04"
+    },
+    {
+      "iban": "GI84 LJUO V286 R57G 4C97 RM2",
+      "name": "Personal",
+      "type": "2",
+      "balance": 0,
+      "lastTransaction": "2025-10-31T10:19:50.471Z",
+      "id": "3RNGftT"
     }
   ],
   "movements": [

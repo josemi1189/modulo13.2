@@ -1,13 +1,12 @@
 .footer {
    display: flex;
    justify-content: flex-end;
-   background-color: var(--secondary-color);
+   background-color: var(--tertiary-color);
    color: white;
    font-weight: 500;
-   padding: 20px;
-   margin-top: auto;
+   padding: 25px 15vw 5px 0px;
 
    img {
-      width: 180px;
+      width: 200px;
    }
 }
